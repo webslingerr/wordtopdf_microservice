@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package docpdf;
+
+option go_package = "app/docpdf";
+
+service ConvertService {
+
+    rpc ConvertToPdf(ConvertRequest) returns (ConvertResponse) {}
+}
+
+message ConvertRequest {
+    string path = 1;
+}
+
+message ConvertResponse {
+    string path = 1;
+}
