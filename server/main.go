@@ -29,13 +29,15 @@ func (s *server) ConvertToPdf(ctx context.Context, req *pb.ConvertRequest) (*pb.
 	if err != nil {
 		return nil, err
 	}
-	pdfPath := filepath.Join(cwd, fmt.Sprintf("%s.pdf", strings.TrimSuffix(filepath.Base(req.Path), ".docx")))
+	pdfPath := filepath.Join(cwd, fmt.Sprintf("/pdf_file/%s.pdf", strings.TrimSuffix(filepath.Base(req.Path), ".docx")))
 
-	args := []string{"--headless", "--convert-to", "pdf", "--outdir", ".", req.Path}
+	args := []string{"--headless", "--convert-to", "pdf", "--outdir", "pdf_file/.", req.Path}
 	cmd := exec.Command("libreoffice", args...)
 	if err := cmd.Run(); err != nil {
 		return nil, err
 	}
+
+	fmt.Println(pdfPath)
 
 	if _, err := os.Stat(pdfPath); os.IsNotExist(err) {
 		return nil, errors.New("pdf file was not created")
