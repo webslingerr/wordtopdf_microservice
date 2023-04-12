@@ -27,7 +27,6 @@ func (s *server) ConvertToPdf(ctx context.Context, req *pb.ConvertRequest) (*pb.
 
 	cwd, err := os.Getwd()
 	if err != nil {
-		fmt.Println("Hey this is error")
 		return nil, err
 	}
 	pdfPath := filepath.Join(cwd, fmt.Sprintf("%s.pdf", strings.TrimSuffix(filepath.Base(req.Path), ".docx")))
